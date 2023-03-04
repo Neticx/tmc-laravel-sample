@@ -28,7 +28,7 @@ class GenericResponseEntity implements Responsable
     /**
      * @var string
      */
-    public $messages;
+    public $messages = 'Process Done';
 
     /**
      * @param $request

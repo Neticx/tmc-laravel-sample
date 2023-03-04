@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->uuid('id')->unique();
+            $table->uuid('id')->primary()->unique();
             $table->string('name', 255);
             $table->timestamps();
             $table->softDeletes();
