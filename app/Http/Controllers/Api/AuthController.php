@@ -12,26 +12,12 @@ class AuthController extends BaseApiController
 {
     public function register(Request $request)
     {
-        $payload = Validator::make($request->all(),[
+        $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required',
         ]);
 
-        if ($payload->fails()) {
-            $this->response->messages = "Invalid payload";
-            $this->response->data =  $payload->failed();
-            return $this->response;
-        }
-
-
-
-        $existingUser = User::where('email', $request->email)->first();
-
-        if ($existingUser) {
-            $this->response->messages = "User with this email already exist!";
-            return $this->response;
-        }
         $newUser = new UserEntity();
         $newUser->name = $request->name;
         $newUser->email = $request->email;
