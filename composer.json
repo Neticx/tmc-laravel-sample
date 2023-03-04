@@ -7,10 +7,12 @@
     "require": {
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
+        "jenssegers/mongodb": "^3.9",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.7",
-        "spatie/laravel-fractal": "^6.0"
+        "spatie/laravel-fractal": "^6.0",
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^13.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
