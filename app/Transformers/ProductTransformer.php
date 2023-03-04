@@ -39,12 +39,14 @@ class ProductTransformer extends TransformerAbstract
             'name' => $product->name,
             'price' => $product->price,
             'stock' => $product->stock,
-            'createdAt' => Carbon::make($product->created_at)->timestamp
+            'createdAt' => Carbon::make($product->created_at)->timestamp ?? 0
         ];
     }
 
     public function includeCategory(Product $product)
     {
-        return $this->item($product->category, new CategoryTransformer);
+        if ($product->category) {
+            return $this->item($product->category, new CategoryTransformer);
+        }
     }
 }

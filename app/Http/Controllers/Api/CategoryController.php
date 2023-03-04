@@ -2,33 +2,25 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Entities\GenericResponseEntity;
 use App\Repositories\Interfaces\CategoryInterface;
-use App\Transformers\CategoryTransformer;
+use App\UseCases\CreateCategoryUseCase;
 use Illuminate\Http\Request;
 
 class CategoryController extends BaseApiController
 {
-    public function index(Request $request, CategoryInterface $repository)
-    {
-        return $repository->find(1);
-    }
-
-    public function create(Request $request, CategoryInterface $repository)
+    /**
+     * @param Request $request
+     * @param CreateCategoryUseCase $useCase
+     * @param CategoryInterface $repository
+     * @return GenericResponseEntity
+     */
+    public function create(Request $request, CreateCategoryUseCase $useCase, CategoryInterface $repository): GenericResponseEntity
     {
         $request->validate([
             'name' => 'required|string|max:255'
         ]);
 
-        try {
-            $data = $repository->create($request->all());
-            $this->response->data = fractal($data, new CategoryTransformer())->toArray() ?? [];
-            $this->response->success = true;
-
-            return $this->response;
-        }catch (\Exception $exception) {
-            $this->response->messages = $exception->getMessage();
-            return $this->response;
-        }
-
+        return $useCase->exec($request, $repository);
     }
 }

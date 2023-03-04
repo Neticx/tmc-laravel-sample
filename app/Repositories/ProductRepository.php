@@ -18,8 +18,14 @@ class ProductRepository extends BaseRepository implements ProductInterface
         $this->model = $model;
     }
 
-    public function findWithCategory($id)
+    /**
+     * save data
+     * @param array $data
+     * @return mixed
+     */
+    public function create(array $data)
     {
-        return $this->model->with('category')->find($id);
+        $result = $this->model->create($data);
+        return $result->load('category');
     }
 }

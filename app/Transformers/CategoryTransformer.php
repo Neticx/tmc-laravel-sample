@@ -36,7 +36,7 @@ class CategoryTransformer extends TransformerAbstract
         return [
             'id' => $category->id,
             'name' => $category->name,
-            'createdAt' => Carbon::make($category->created_at)->timestamp
+            'createdAt' => Carbon::make($category->created_at)->timestamp ?? 0
         ];
     }
 }
